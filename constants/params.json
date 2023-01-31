@@ -1,0 +1,15 @@
+{
+    "sampleitem1":{
+        "id":1,
+        "name": "sampleitem1",
+        "price":"0.5",
+        "shippingprice":"0"
+    },
+    "sampleitem2":{
+        "id":2,
+        "name": "sampleitem2",
+        "price":"0.7",
+        "shippingprice":"0.01"
+    },
+    "updatedshippingprice":"0.1"
+}
