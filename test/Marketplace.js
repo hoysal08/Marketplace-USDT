@@ -72,6 +72,11 @@ describe("Marketplace",async function() {
             expect(await marketplace.oracle()).to.be.equal(sampleoracle.address);
             expect(await marketplace.usdt()).to.be.equal(sampleusdt.address);
         })
+        it("should not allow to call initialize function more than once",async function(){
+            const{sampleoracle,sampleusdt,marketplace}=await loadFixture(deployFixture);
+
+            await expect( marketplace.initialize(sampleusdt.address,sampleoracle.address)).to.be.revertedWith("Initializable: contract is already initialized");
+        })
     })
 
     describe("Check for add items on marketplace",async function(){

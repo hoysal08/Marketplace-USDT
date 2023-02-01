@@ -7,25 +7,46 @@
 const hre = require("hardhat");
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
-  const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
+  const [owner]=await ethers.getSigners();
 
-  const lockedAmount = hre.ethers.utils.parseEther("1");
 
-  const Lock = await hre.ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+  const SampleUSDT=await ethers.getContractFactory("Tether");
+  const sampleusdt=await SampleUSDT.deploy();
+  await sampleusdt.deployed();
+  console.log("USDT deployed at " + sampleusdt.address);
 
-  await lock.deployed();
+  //required to deploy Sample Oracle in local environment
 
-  console.log(
-    `Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
-  );
+  // const SampleOracles=await ethers.getContractFactory("oracle");
+  // const sampleoracle=await SampleOracles.deploy();
+  // await sampleoracle.deployed();
+  // console.log("Oracles deployed at " + sampleoracle.address);
+
+  Oracleaddress="0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e"
+
+  //deploy Marketplace based on SampleOracle
+
+  // const Marketplacecontract=await ethers.getContractFactory("Marketplace",owner);
+  // const marketplace=await upgrades.deployProxy(Marketplacecontract,[sampleusdt.address,sampleoracle.address],{unsafeAllowCustomTypes:true});
+  // await marketplace.deployed();
+  // console.log("Marketplace deployed at "+ marketplace.address);
+
+  const Marketplacecontract=await ethers.getContractFactory("Marketplace",owner);
+  const marketplace=await upgrades.deployProxy(Marketplacecontract,[sampleusdt.address,Oracleaddress],{unsafeAllowCustomTypes:true});
+  await marketplace.deployed();
+  console.log("Marketplace deployed at "+ marketplace.address);
+
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
+
 main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
+
+
+/* 
+npx hardhat run scripts/deploy.js --network goerli
+USDT deployed at 0x77925e831510A73E4E40e8C07becafBe8936D23f
+Marketplace deployed at 0x64E4d633e709994e9D8ECB843E2056FAdBEdC096
+*/
