@@ -51,3 +51,21 @@ The attacker will have front-run 3 transactions to achieve a meaning full attack
    1. ``` function generatehash(uint256 id)```
    2. ``` function reserve(bytes32 hash)```
    3. ```function buyItem(uint256 id)```
+
+<br><br>
+## Contract Address
+- [Marketplace - 0x64E4d633e709994e9D8ECB843E2056FAdBEdC096](https://goerli.etherscan.io/address/0x64E4d633e709994e9D8ECB843E2056FAdBEdC096)
+
+- [USDT - 0x77925e831510A73E4E40e8C07becafBe8936D23f ](https://goerli.etherscan.io/address/0x77925e831510A73E4E40e8C07becafBe8936D23f#readContract)
+
+- [Price Oracle - 0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e](https://goerli.etherscan.io/address/0xD4a33860578De61DBAbDc8BFdb98FD742fA7028e)
+
+## Instructions 
+#### You can run dependencies using  
+```npm install```
+#### You can compile contracts using 
+```npm hardhat compile```
+#### You can run tests using 
+```npm hardhat test```
+### You can deploy by 
+```npm run scripts/deploy.js --network <n/w>```
